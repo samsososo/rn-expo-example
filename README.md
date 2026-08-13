@@ -23,7 +23,25 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+This project uses [Expo Router](https://docs.expo.dev/router/introduction) with a feature-first architecture. Route files in `src/app` stay thin; application code lives in `src/features` and reusable foundations live in `src/shared`.
+
+## Architecture
+
+```text
+src/
+  app/                      # Expo Router routes and app composition only
+  features/
+    getting-started/        # Home capability: screen, components, public API
+    explore/                # Explore capability: screen, components, public API
+  shared/
+    navigation/             # Cross-feature navigation shell
+    theme/                  # Theme tokens and hooks
+    ui/                     # Reusable UI primitives
+```
+
+Each feature exposes its supported surface through an `index.ts`. Code outside a feature should import that public API instead of reaching into the feature's internal folders.
+
+Dependency direction is `app → features → shared`. Feature-specific code stays with its feature until it is genuinely reused.
 
 ## Get a fresh project
 
