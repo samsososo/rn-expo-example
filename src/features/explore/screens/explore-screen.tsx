@@ -12,7 +12,11 @@ import { WebBadge } from '@/shared/ui/web-badge';
 
 import { Collapsible } from '../components/collapsible';
 
-export function ExploreScreen() {
+type ExploreScreenProps = {
+  profileJson?: string;
+};
+
+export function ExploreScreen({ profileJson }: ExploreScreenProps) {
   const safeAreaInsets = useSafeAreaInsets();
   const insets = {
     ...safeAreaInsets,
@@ -60,6 +64,8 @@ export function ExploreScreen() {
         </ThemedView>
 
         <ThemedView style={styles.sectionsWrapper}>
+          {profileJson ? <ThemedText type="code">{profileJson}</ThemedText> : null}
+
           <Collapsible title="File-based routing">
             <ThemedText type="small">
               This app has two screens: <ThemedText type="code">src/app/index.tsx</ThemedText> and{' '}

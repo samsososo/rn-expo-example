@@ -33,6 +33,7 @@ src/
   features/
     getting-started/        # Home capability: screen, components, public API
     explore/                # Explore capability: screen, components, public API
+    profile/                # Profile API, query, types, and public API
   shared/
     navigation/             # Cross-feature navigation shell
     theme/                  # Theme tokens and hooks
@@ -42,6 +43,12 @@ src/
 Each feature exposes its supported surface through an `index.ts`. Code outside a feature should import that public API instead of reaching into the feature's internal folders.
 
 Dependency direction is `app → features → shared`. Feature-specific code stays with its feature until it is genuinely reused.
+
+## API demo
+
+The Explore feature loads a profile with Axios and caches the server state with TanStack Query. The response is rendered directly with `JSON.stringify`. Zustand is installed for future client state, so API data is not duplicated in a client store.
+
+The development default is `http://localhost:8082/api/mobile/v1`. To override it, copy `.env.example` to `.env.local` and change `EXPO_PUBLIC_API_BASE_URL`.
 
 ## Get a fresh project
 
